@@ -28,7 +28,7 @@ Key points:
 ---
 
 ## 🛠 2. Datapath Design
- ![transient response](./Data_path.png)
+ ![simulation](./data_path.png)
 
 
 | Component      | Description                                                               |
