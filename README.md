@@ -1,6 +1,6 @@
 #  Dedicated Microprocessor for GCD Calculation
 
-This repository presents a **dedicated microprocessor** design for computing the Greatest Common Divisor (GCD) of two 8-bit positive integers, implemented in Logisim. The design follows the **FSM+D** (Finite State Machine + Datapath) methodology described in Hwang's *Digital Logic & Microprocessor Design* fileciteturn0file0.
+This repository presents a **dedicated microprocessor** design for computing the Greatest Common Divisor (GCD) of two 8-bit positive integers, implemented in Logisim. The design follows the **FSM+D** (Finite State Machine + Datapath) methodology described in Hwang's *Digital Logic & Microprocessor Design* 
 
 ---
 
