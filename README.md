@@ -27,8 +27,8 @@ Key points:
 
 ---
 
-## 🛠 2. Datapath Design
- ![simulation](./data_path.png)
+##  2. Datapath Design
+<img src="./data_path.png" alt="DP" width="600" height="550"/>
 
 
 | Component      | Description                                                               |
@@ -49,8 +49,9 @@ Control signals:
 
 ---
 
-## 🔄 3. State Machine
-
+## 3. State Machine
+ 
+<img src="./State_Diagram.png" alt="statemachine" width="600" height="550"/>
 ## 3.2 Next-State & Output Table
 
                               |          Next State (Q₂⁺ Q₁⁺ Q₀⁺)              |
@@ -66,8 +67,6 @@ Control signals:
 | 110 (Unused)             | 000        | 000        | 000        | 000        |
 | 111 (Unused)             | 000        | 000        | 000        | 000        |
 
-
-
 ---
 
 ## 4. Control Logic Equations
@@ -80,7 +79,8 @@ D1 = Q1+ = Q2.~Q1.Q0(¬EQ) +
 D0 = Q0+ = ~Q2.~Q0 + ~Q2(~EQ·~GT) +Q2.Q1      // complete per K‑map
 ```
 
-*(Full equations derived from K‑maps in Hwang, Fig. 7.32(c))* fileciteturn0file0
+<img src="./control_Unit.png" alt="cU" width="600" height="550"/>
+*(Full equations derived from K‑maps in Hwang, Fig. 7.32(c))*
 
 ### 4.2 Control Logic Table
 
@@ -89,7 +89,7 @@ D0 = Q0+ = ~Q2.~Q0 + ~Q2(~EQ·~GT) +Q2.Q1      // complete per K‑map
 | 0            | 000            | INPUT X, INPUT Y   | 1    | 1    | 1     | 1     | ×  | 0   |
 | 1            | 001            | No operation       | ×    | ×    | ×     | ×     | ×  | 0   |
 | 2            | 010            | X = X − Y          | 0    | 1    | 1     | 0     | 0  | 0   |
-| 3            | 011            | Y = Y − X          | x    | x    | 0     | 0     | x  | 1       
+| 3            | 011            | Y = Y − X          | x    | x    | 0     | 0     | x  | 1   |    
 
 ---
 
@@ -99,12 +99,6 @@ D0 = Q0+ = ~Q2.~Q0 + ~Q2(~EQ·~GT) +Q2.Q1      // complete per K‑map
 - Next-state logic network from above equations
 - Output decoders for control signals
 
----
-```text
-Initial: X=12, Y=4, Reset=1 → State 000 loads inputs.
-Clock: FSM cycles through subtraction and comparison until EQ=1.
-Final: Out=4, Done asserted.
-```
 
 ---
 
@@ -116,8 +110,7 @@ Final: Out=4, Done asserted.
 /images/
   ├── datapath.png
   ├── control_unit.png
-  ├── transient.png
-  └── ac_sweep.png
+
 ```
 ---
 
