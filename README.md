@@ -1,10 +1,10 @@
-# 📘 Dedicated Microprocessor for GCD Calculation
+#  Dedicated Microprocessor for GCD Calculation
 
 This repository presents a **dedicated microprocessor** design for computing the Greatest Common Divisor (GCD) of two 8-bit positive integers, implemented in Logisim. The design follows the **FSM+D** (Finite State Machine + Datapath) methodology described in Hwang's *Digital Logic & Microprocessor Design* fileciteturn0file0.
 
 ---
 
-## 🧠 1. Theory & Algorithm
+## 1. Theory & Algorithm
 
 We employ the **Euclidean Algorithm** to compute GCD(X, Y):
 
@@ -51,9 +51,9 @@ Control signals:
 
 ## 🔄 3. State Machine
 
-### 3.2 Next-State & Output Table
+## 3.2 Next-State & Output Table
 
-                                       -- Next State (Q₂⁺ Q₁⁺ Q₀⁺) --
+                              |          Next State (Q₂⁺ Q₁⁺ Q₀⁺)              |
 
 | Current State (Q₂ Q₁ Q₀) | EQ,GT = 00 | EQ,GT = 01 | EQ,GT = 10 | EQ,GT = 11 |
 |--------------------------|------------|------------|------------|------------|
@@ -70,48 +70,36 @@ Control signals:
 
 ---
 
-## ✍️ 4. Control Logic Equations
+## 4. Control Logic Equations
 
-### 4.1 Next-State Equations (D-FF Inputs)
-
+## 4.1 Next-State Equations (D-FF Inputs)
+    # derived via K‑maps
 ```text
-D2 = Q2'·EQ + Q2·(¬EQ)        // example Boolean form
-D1 = Q1'·(¬EQ·GT) + Q1·(EQ)   // derive via K‑maps
-D0 = Q0'·(¬EQ·¬GT) + ...      // complete per K‑map
+D2= Q2+ = Q2.~Q1.~Q0 + ~Q1.Q0.~Q2(EQ)       
+D1 = Q1+ = Q2.~Q1.Q0(¬EQ) +
+D0 = Q0+ = ~Q2.~Q0 + ~Q2(~EQ·~GT) +Q2.Q1      // complete per K‑map
 ```
 
 *(Full equations derived from K‑maps in Hwang, Fig. 7.32(c))* fileciteturn0file0
 
-### 4.2 Output (Control) Equations
+### 4.2 Control Logic Table
 
-```text
-In_X  = (S == 000)
-In_Y  = (S == 000)
-XLoad = (S == 000) + (S == 010)
-YLoad = (S == 000) + (S == 011)
-XY    = (S == 010)
-Out   = (S == 100)
-Done  = (S == 100)
-```
+| Control Word | State (Q₂Q₁Q₀) | Instruction        | In_X | In_Y | XLoad | YLoad | XY | Out |
+|--------------|----------------|--------------------|------|------|-------|-------|----|-----|
+| 0            | 000            | INPUT X, INPUT Y   | 1    | 1    | 1     | 1     | ×  | 0   |
+| 1            | 001            | No operation       | ×    | ×    | ×     | ×     | ×  | 0   |
+| 2            | 010            | X = X − Y          | 0    | 1    | 1     | 0     | 0  | 0   |
+| 3            | 011            | Y = Y − X          | x    | x    | 0     | 0     | x  | 1       
 
 ---
 
 ## 🔗 5. Complete Control Unit Circuit
-
-
 
 - Three D flip-flops for state memory (Q2,Q1,Q0)
 - Next-state logic network from above equations
 - Output decoders for control signals
 
 ---
-
-## 🧪 6. Simulation & Testing
-
-1. **Logisim Project**: `GCD_microprocessor.circ`
-2. **Test Vectors**: GCD(12,4) → 4; GCD(15,10) → 5
-3. **Waveforms**: see `transient.png` and `ac_sweep.png`
-
 ```text
 Initial: X=12, Y=4, Reset=1 → State 000 loads inputs.
 Clock: FSM cycles through subtraction and comparison until EQ=1.
@@ -131,18 +119,10 @@ Final: Out=4, Done asserted.
   ├── transient.png
   └── ac_sweep.png
 ```
-
 ---
 
-## 👷 Usage
-
-1. Open the `*.circ` file in Logisim.
-2. Apply input via switches and toggle clock.
-3. Observe LEDs for output and Done flag.
-
----
 
 ## 📚 References
 
-- E. O. Hwang, *Digital Logic & Microprocessor Design With Interfacing*, 2nd Ed., Cengage Learning, 2018. (Ch. 7, Sec. 7.5.1) fileciteturn0file0
+- E. O. Hwang, *Digital Logic & Microprocessor Design With Interfacing*, 2nd Ed., Cengage Learning, 2018. (Ch. 7)
 
